@@ -1,0 +1,79 @@
+create table categoria{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+    tipo varchar(100) not null
+}
+create table endereço{
+    id int primary key auto_increment,
+    rua varchar(100) not null,
+    bairro varchar(100) not null,
+    cidade varchar(100) not null,
+    estado varchar(100) not null,
+    numero int not null,
+    complemento varchar(100) not null,
+}
+create table restaurante{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+    descricao varchar(100) not null,
+    id_categoria int not null,
+    id_endereco int not null,
+    horario date not null,
+    nota int(10),
+    taxa_entrega double,
+    tempo_preparo double,
+    foreign key (id_categoria) references categoria(id),
+    foreign key (id_endereco) references endereco(id)
+}
+create table produto{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+    avaliacao int (5) not null,
+    preco double not null,
+    descricao varchar(100) not null,
+    id_categoria int not null,
+    id_restaurante int not null,
+    foreign key (id_categoria) references categoria(id),
+    foreign key (id_restaurante) references restaurante(id)
+}
+create table complemento{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+    descricao varchar(100) not null,
+    valor double not null
+}
+create table cupom(
+    id int primary key auto_increment,
+    validade date not null,
+    valor double not null
+)
+create table status_pedido{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+}
+create table status_pagamento{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+}
+create table forma_pagamento{
+    id int primary key auto_increment,
+    nome varchar(100) not null,
+}
+create table pedido{
+    id int primary key auto_increment,
+    valor_total double not null,
+    data date not null,
+    valor_entrega double not null,
+    id_endereco int not null,
+    id_cupom int not null,
+    id_restauranteint not null,
+    id_status_pedido int not null,
+    id_status_pagamento int not null,
+    id_forma_pagamento int not null,
+    foreign key (id_restaurante) references restaurante(id),
+    foreign key (id_endereco) references endereco(id),
+    foreign key (id_cupom) references cupom(id),
+    foreign key (id_status_pagamento) references status_pagamento(id),
+    foreign key (id_forma_pagamento) references forma_pagamento(id),
+    foreign key (id_status_pedido) references status-pedido(id)
+}
