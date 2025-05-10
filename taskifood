@@ -20,16 +20,16 @@ create table restaurante{
     id_endereco int not null,
     horario date not null,
     nota int(10),
-    taxa_entrega double,
-    tempo_preparo double,
+    taxa_entrega float,
+    tempo_preparo float,
     foreign key (id_categoria) references categoria(id),
     foreign key (id_endereco) references endereco(id)
 }
 create table produto{
     id int primary key auto_increment,
     nome varchar(100) not null,
-    avaliacao int (5) not null,
-    preco double not null,
+    avaliacao varchar(100) not null,
+    preco float not null,
     descricao varchar(100) not null,
     id_categoria int not null,
     id_restaurante int not null,
@@ -40,12 +40,12 @@ create table complemento{
     id int primary key auto_increment,
     nome varchar(100) not null,
     descricao varchar(100) not null,
-    valor double not null
+    valor float not null
 }
 create table cupom(
     id int primary key auto_increment,
     validade date not null,
-    valor double not null
+    valor float not null
 )
 create table status_pedido{
     id int primary key auto_increment,
@@ -61,7 +61,7 @@ create table forma_pagamento{
 }
 create table pedido{
     id int primary key auto_increment,
-    valor_total double not null,
+    valor_total float not null,
     data date not null,
     valor_entrega double not null,
     id_endereco int not null,
@@ -77,3 +77,18 @@ create table pedido{
     foreign key (id_forma_pagamento) references forma_pagamento(id),
     foreign key (id_status_pedido) references status-pedido(id)
 }
+create table produto_pedido{
+    id_produto int not null,
+    id_pedido int not null,
+    foreign key (id_produto) references produto(id),
+    foreign key (id_pedido) references pedido(id)
+}
+create table comple_pedido_produto{
+    id_complemento int not null,
+    tipo varchar(100) not null,
+    id_produto_pedido int not null,
+    valor_unidade float not null,
+    foreign key (id_produto_pedido) references produto_pedido(id),
+    foreign key (id_complemento) references complemento(id)
+}
+
