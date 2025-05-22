@@ -1,0 +1,23 @@
+create database atividade;
+use atividade;
+
+create table cliente(
+nome varchar(100) not null,
+id int primary key auto_increment,
+CPF varchar(11) not null unique,
+email varchar(100));
+
+insert into cliente (nome,CPF,email) values 
+('Pedro Augusto','11122233344','pedro@gmail.com'),
+('Joao Vitor','33344455566','joao@gmail.com'),
+('talles','22233344455','talles@gmail.com');
+
+alter table cliente add column sexo
+varchar(1);
+
+update cliente set sexo = 'M' where nome = 'Pedro Augusto';
+update cliente set sexo = 'M' where nome = 'Joao Vitor';
+update cliente set sexo = 'M' where nome = 'Talles';
+
+select distinct(email) from cliente;
+select nome from cliente where nome like 'A%';
